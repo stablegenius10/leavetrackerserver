@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 // Define the GET endpoint for fetching leave history
 dbConnect();
-app.get("/leave-history", async (req, res) => {
+app.get("/api/leave-history", async (req, res) => {
   try {
     const leaveHistory = await Leave.find();
     res.json(leaveHistory);
@@ -22,7 +22,7 @@ app.get("/leave-history", async (req, res) => {
 });
 
 // Define the PUT endpoint for updating the approval status of a single leave entry
-app.put("/update-approval-status/:id", async (req, res) => {
+app.put("/api/update-approval-status/:id", async (req, res) => {
   const entryId = req.params.id;
   let newStatus = req.body.approvalStatus;
   try {
@@ -39,7 +39,7 @@ app.put("/update-approval-status/:id", async (req, res) => {
   }
 });
 
-app.post("/submit", async (req, res) => {
+app.post("/api/submit", async (req, res) => {
   const leave = new Leave({
     employeeName: req.body.employeeName,
     leaveType: req.body.leaveType,
